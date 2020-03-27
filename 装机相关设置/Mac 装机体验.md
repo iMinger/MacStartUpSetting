@@ -19,6 +19,7 @@ alias unsetproxy="unset ALL_PROXY"
 alias ip="curl ip.gs"
  ```
  
+ ***注意： 这里的端口号要和你的翻墙工具里监听 socks的端口号一致。***
  保存并推出，然后 source .bash_profile使得生效.
  然后，就可以使用别名 setproxy 来使得终端走代理了。
  
