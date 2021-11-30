@@ -3,9 +3,11 @@
 
 1.科学上网工具：
 
- - [Shadowsocks](https://github.com/shadowsocks/ShadowsocksX-NG/releases/)
- - [V2Ray](https://github.com/v2ray/v2ray-core/releases)
+ - [ClashX](https://github.com/yichengchen/clashX)
+ - [Shadowsocks](https://github.com/shadowsocks/ShadowsocksX-NG/releases/) (已弃用)
+ - [V2Ray](https://github.com/v2ray/v2ray-core/releases) (已弃用)
  
+ 目前购买的服务在`https://portal.shadowsocks.nz/aff.php?aff=24033`
  可以科学上网之后，打开终端
  ```
  touch .bash_profile
@@ -14,8 +16,20 @@
  然后在里面写上
  ```
  # 终端开启代理吗，关闭代理命令
-alias setproxy="export ALL_PROXY=socks5://127.0.0.1:1080"
-alias unsetproxy="unset ALL_PROXY"
+function setproxy() {
+    # export {HTTP,HTTPS,FTP}_PROXY="http://127.0.0.1:3128" 也可以设置http代理
+    # 设置socks5代理会比较好
+    export ALL_PROXY=socks5://127.0.0.1:7890
+    echo -e "已开启代理"
+}
+
+function unsetproxy() {
+    # unset {HTTP,HTTPS,FTP}_PROXY
+    unset ALL_PROXY
+    echo -e "已关闭代理"
+}
+
+# 设置 'curl ip.gs'命令 的别名ip
 alias ip="curl ip.gs"
  ```
  
