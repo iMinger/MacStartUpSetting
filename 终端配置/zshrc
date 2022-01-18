@@ -1,0 +1,38 @@
+
+echo -e "zshrc 文件加载"
+
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
+
+
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# agnoster robbyrussell
+ZSH_THEME="agnoster"
+
+
+
+# 这里添加自动补全的插件
+plugins=(
+
+    # git 插件
+    git 
+
+    # 自动提示插件
+    # zsh-autosuggestions
+
+    # 务必保证插件顺序，zsh-syntax-highlighting 必须在最后一个
+    # 高亮插件
+    zsh-syntax-highlighting
+)
+
+source $ZSH/oh-my-zsh.sh
+
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+
+
+# 加载 .bash_profile
+source $HOME/.bash_profile
+

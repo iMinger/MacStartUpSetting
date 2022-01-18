@@ -1,0 +1,88 @@
+
+
+
+# 终端开启代理吗，关闭代理命令
+function setproxy() {
+   # export {HTTP,HTTPS,FTP}_PROXY="http://127.0.0.1:3128" 也可以设置http代理
+   # 设置socks5代理会比较好
+   export ALL_PROXY=socks5://127.0.0.1:7890
+   echo -e "已开启代理"
+}
+
+function unsetproxy() {
+   # unset {HTTP,HTTPS,FTP}_PROXY
+   unset ALL_PROXY
+   echo -e "已关闭代理"
+}
+
+# 设置 'curl ip.gs'命令 的别名ip
+alias ip="curl ip.gs"
+
+echo -e "已加载.bash_profile"
+
+
+[[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+
+# java JDK 环境变量
+JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home
+PATH=$JAVA_HOME/bin:$PATH:.
+CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:.
+export JAVA_HOME
+export PATH
+export CLASSPATH
+
+
+# flutter 环境设置，使用国内镜像
+export PUB_HOSTED_URL=https://pub.flutter-io.cn
+export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
+
+# 添加 flutter 相关工具到path中
+# 这里不能用 PATH=`pwd`/flutter/bin:$PATH, 因为在终端中这样是没问题的，但是在andriod studio 中 `pwd`就不指向根目录了。
+export PATH=$HOME/flutter/bin:$PATH
+
+
+# 加载homebrew 配置
+export PATH=/opt/homebrew/bin:$PATH
+
+# 通过subl命令来打开Sublime Text
+alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+
+# .bash_profile 和 .bashrc 有何不同？
+# 以Ubuntu为例.bash_profile 在login shell 启动时执行
+# 而.bashrc在non-login shell 启动时执行。(Mac 情况不同，后文提到)
+
+# login shell 和 non-login shell
+# login shell  用户登录(输入用户名密码)时打开的shell，就叫做login shell， 用户登录主要分为三种：
+# 命令行登录  ssh 登录  图形化页面登录
+# 命令行登录依次会寻找下面三个文件： 
+# 1.  ~/.bash_profile
+# 2.  ~/.bash_login
+# 3.  ~/.profile
+# 需要注意的是： 这三个文件只要有一个存在，就不再读入后续的文件了。
+
+#  ssh登录和命令行登录情况相同
+#  图形化界面登录只加载 /etc/profile 和 ~/.profile. 也就是说， ~/.bash_profile 不管有没有，都不会执行
+
+# non-login shell
+# 用户进入操作系统后，常常会再手动开启一个shell。 这个shell就叫做 non-login shell, 意思是它不同于登录时出现的那个shell，
+# 不读取 /etc/profile 和 ~/.profile 等配置文件
+# non-login shell会读入用户自己的bash配置文件 ~/.bashrc。大多数时候，我们对于bash的定制，都是写在这个文件里面的。
+
+# 为什么需要两种不同文件？
+# 比如你想在登录时打印一些电脑诊断信息(内存使用，在线用户等等)。你只想在每次登录的时候看到，
+# 所以将相关代码写入.bash_profile 如果你写入.bashrc 则你每次打开terminal都会打印这些信息。
+
+## Mac 例外
+# mac 的terminal 打开的每个新shell默认为login shell. 只加载 .bash_profile. 而且，不管是ssh登录，还是在
+# 图形化页面里启动shell窗口，都是如此。
+
+
+# 注意下面第二行开头的那个点，是source 命令的缩写形式，表示运行某个文件，写成 source ~/.bashrc 也是可以的
+# [ -f ~/.bashrc ] 中括号内侧有空格
+# 这样执行 .bash_profile 时也会执行 .bashrc
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
